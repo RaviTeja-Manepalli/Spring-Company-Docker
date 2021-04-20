@@ -1,0 +1,24 @@
+    
+version: '3'
+services:
+  mysql-company:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=company
+    networks:
+      - mysql-network
+  springboot-docker-container:
+    image: spring-company
+    ports:
+      - "8555:8555"
+    networks:
+      - mysql-network
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    depends_on:
+      - mysql-company
+networks:
+  mysql-network:
+     
